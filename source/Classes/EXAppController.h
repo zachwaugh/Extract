@@ -23,9 +23,5 @@
 
 - (void)paste:(id)sender;
 - (void)copy:(id)sender;
-- (void)loadEmbed:(NSString *)embedCode;
-- (void)callJavaScript:(NSString *)script;
-- (void)play:(id)sender;
-- (void)pause:(id)sender;
-- (void)logSource;
+
 @end

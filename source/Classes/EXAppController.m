@@ -8,6 +8,15 @@
 
 #import "EXAppController.h"
 
+// Private methods
+@interface EXAppController ()
+
+- (void)loadEmbed:(NSString *)embedCode;
+- (void)logSource;
+
+@end
+
+
 @implementation EXAppController
 
 @synthesize originalEmbed, background;
@@ -47,14 +56,15 @@
 - (void)paste:(id)sender
 {
 	NSString *content = [[NSPasteboard generalPasteboard] stringForType:NSStringPboardType];
+	
+	// Cache pasted embed code
+	self.originalEmbed = content;
+	
 	[self loadEmbed:content];
 }
 
 - (void)loadEmbed:(NSString *)embedCode
-{
-	// Cache pasted embed code
-	self.originalEmbed = embedCode;
-	
+{	
 	DOMHTMLElement *extract = (DOMHTMLElement *)[[[webView mainFrame] DOMDocument] getElementById:@"_extract"];
 
 	int height, width;

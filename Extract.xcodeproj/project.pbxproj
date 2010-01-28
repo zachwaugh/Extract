@@ -11,11 +11,11 @@
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		BF2B5F0511114D490048A827 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BFCE904B103CFF6000BF8A66 /* Sparkle.framework */; };
 		BF8DE228102CE92A00D342E6 /* EXAppController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8DE227102CE92A00D342E6 /* EXAppController.m */; };
 		BF8DE22C102CE95700D342E6 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF8DE22B102CE95700D342E6 /* WebKit.framework */; };
 		BF8DE36F102CF9BE00D342E6 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = BF8DE36E102CF9BE00D342E6 /* index.html */; };
 		BFCE904C103CFF6000BF8A66 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFCE904B103CFF6000BF8A66 /* Sparkle.framework */; };
-		BFCE905B103CFF8A00BF8A66 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BFCE904B103CFF6000BF8A66 /* Sparkle.framework */; };
 		BFD2BC8810C37135007C5B65 /* Extract-icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = BFD2BC8710C37135007C5B65 /* Extract-icon.icns */; };
 		BFD9057F107D7809001AA783 /* paste_embed_code.png in Resources */ = {isa = PBXBuildFile; fileRef = BFD9057E107D7809001AA783 /* paste_embed_code.png */; };
 /* End PBXBuildFile section */
@@ -27,7 +27,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				BFCE905B103CFF8A00BF8A66 /* Sparkle.framework in CopyFiles */,
+				BF2B5F0511114D490048A827 /* Sparkle.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -38,19 +38,19 @@
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		1DDD58150DA1D0A300B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = source/main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8D1107310486CEB800E47090 /* Extract-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Extract-Info.plist"; path = "resources/Extract-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Extract.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Extract.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		BF6B4A0A107C35AC00CF5103 /* Extract_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Extract_Prefix.pch; sourceTree = "<group>"; };
+		BF6B4A0A107C35AC00CF5103 /* Extract_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Extract_Prefix.pch; path = source/Extract_Prefix.pch; sourceTree = "<group>"; };
 		BF8DE226102CE92A00D342E6 /* EXAppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXAppController.h; sourceTree = "<group>"; };
 		BF8DE227102CE92A00D342E6 /* EXAppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXAppController.m; sourceTree = "<group>"; };
 		BF8DE22B102CE95700D342E6 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
-		BF8DE36E102CF9BE00D342E6 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
-		BFCE904B103CFF6000BF8A66 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
-		BFD2BC8710C37135007C5B65 /* Extract-icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = "Extract-icon.icns"; sourceTree = "<group>"; };
-		BFD9057E107D7809001AA783 /* paste_embed_code.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = paste_embed_code.png; sourceTree = "<group>"; };
+		BF8DE36E102CF9BE00D342E6 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = index.html; path = resources/index.html; sourceTree = "<group>"; };
+		BFCE904B103CFF6000BF8A66 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = frameworks/Sparkle.framework; sourceTree = "<group>"; };
+		BFD2BC8710C37135007C5B65 /* Extract-icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = "Extract-icon.icns"; path = "resources/Extract-icon.icns"; sourceTree = "<group>"; };
+		BFD9057E107D7809001AA783 /* paste_embed_code.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = paste_embed_code.png; path = resources/paste_embed_code.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +74,7 @@
 				BF8DE227102CE92A00D342E6 /* EXAppController.m */,
 			);
 			name = Classes;
+			path = source/Classes;
 			sourceTree = "<group>";
 		};
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
@@ -130,7 +131,7 @@
 			children = (
 				BFD2BC8710C37135007C5B65 /* Extract-icon.icns */,
 				BFD9057E107D7809001AA783 /* paste_embed_code.png */,
-				8D1107310486CEB800E47090 /* Info.plist */,
+				8D1107310486CEB800E47090 /* Extract-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
 				BF8DE36E102CF9BE00D342E6 /* index.html */,
@@ -220,6 +221,7 @@
 				089C165DFE840E0CC02AAC07 /* English */,
 			);
 			name = InfoPlist.strings;
+			path = resources;
 			sourceTree = "<group>";
 		};
 		1DDD58140DA1D0A300B32029 /* MainMenu.xib */ = {
@@ -228,6 +230,7 @@
 				1DDD58150DA1D0A300B32029 /* English */,
 			);
 			name = MainMenu.xib;
+			path = resources;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -240,6 +243,7 @@
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)\"/frameworks",
 					"\"$(SRCROOT)\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -248,9 +252,10 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Extract_Prefix.pch;
-				INFOPLIST_FILE = Info.plist;
+				GCC_PREFIX_HEADER = source/Extract_Prefix.pch;
+				INFOPLIST_FILE = "resources/Extract-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
+				LD_RUNPATH_SEARCH_PATHS = "";
 				PRODUCT_NAME = Extract;
 			};
 			name = Debug;
@@ -262,14 +267,16 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)\"/frameworks",
 					"\"$(SRCROOT)\"",
 				);
 				GCC_ENABLE_OBJC_GC = unsupported;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Extract_Prefix.pch;
-				INFOPLIST_FILE = Info.plist;
+				GCC_PREFIX_HEADER = source/Extract_Prefix.pch;
+				INFOPLIST_FILE = "resources/Extract-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
+				LD_RUNPATH_SEARCH_PATHS = "";
 				PRODUCT_NAME = Extract;
 			};
 			name = Release;
