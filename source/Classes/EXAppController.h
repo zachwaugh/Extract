@@ -11,7 +11,7 @@
 
 @interface EXAppController : NSObject
 {
-	IBOutlet NSPanel *window;
+	IBOutlet NSWindow *window;
 	IBOutlet WebView *webView;
 	IBOutlet NSImageView *background;
 	
@@ -23,5 +23,6 @@
 
 - (void)paste:(id)sender;
 - (void)copy:(id)sender;
+- (void)toggleKeepOnTop:(id)sender;
 
 @end

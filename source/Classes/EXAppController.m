@@ -24,12 +24,16 @@
 - (void)awakeFromNib
 {
 	// Allow spaces to work
-	//[window setFloatingPanel:NO];
-	[webView setDrawsBackground:NO];
+	[window setContentBorderThickness:0 forEdge:NSMinYEdge];
+	[window setBackgroundColor:[NSColor colorWithCalibratedWhite:0.0 alpha:0.75]];
+	[window setOpaque:NO];
+	[window setLevel:NSFloatingWindowLevel];
 	
+	[webView setDrawsBackground:NO];
 	[[[webView mainFrame] frameView] setAllowsScrolling:NO];
 	[[webView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"]]]];
 }
+
 
 - (void)dealloc
 {
@@ -39,11 +43,28 @@
 	[super dealloc];
 }
 
+
+- (void)toggleKeepOnTop:(id)sender
+{
+	if ([sender state] == NSOnState)
+	{
+		[window setLevel:NSNormalWindowLevel];
+		[sender setState:NSOffState];
+	}
+	else
+	{
+		[window setLevel:NSFloatingWindowLevel];
+		[sender setState:NSOnState];
+	}
+}
+
+
 // Make sure app quits after panel is closed
 - (void)windowWillClose:(NSNotification *)notification
 {
 	[[NSApplication sharedApplication] terminate:nil];
 }
+
 
 // Allow getting original embed code back out of app
 - (void)copy:(id)sender
@@ -51,6 +72,7 @@
 	[[NSPasteboard generalPasteboard] declareTypes:[NSArray arrayWithObject:NSStringPboardType] owner:self];
 	[[NSPasteboard generalPasteboard] setString:self.originalEmbed forType:NSStringPboardType];
 }
+
 
 // Handle pasting embed code
 - (void)paste:(id)sender
@@ -62,6 +84,7 @@
 	
 	[self loadEmbed:content];
 }
+
 
 - (void)loadEmbed:(NSString *)embedCode
 {	
