@@ -14,11 +14,12 @@
 	IBOutlet NSWindow *window;
 	IBOutlet WebView *webView;
 	IBOutlet NSImageView *background;
+	IBOutlet NSMenuItem *keepWindowOnTop;
 	
-	NSString *originalEmbed;
+	NSString *cache;
 }
 
-@property (retain) NSString *originalEmbed;
+@property (retain) NSString *cache;
 @property (retain) NSImageView *background;
 
 - (void)paste:(id)sender;

@@ -266,7 +266,6 @@
 									<string key="NSTitle">Keep on Top</string>
 									<string key="NSKeyEquiv"/>
 									<int key="NSMnemonicLoc">2147483647</int>
-									<int key="NSState">1</int>
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
 								</object>
@@ -307,7 +306,7 @@
 			<object class="NSWindowTemplate" id="124356963">
 				<int key="NSWindowStyleMask">271</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{157, 253}, {192, 208}}</string>
+				<string key="NSWindowRect">{{157, 253}, {250, 250}}</string>
 				<int key="NSWTFlags">611845120</int>
 				<string key="NSWindowTitle"/>
 				<string key="NSWindowClass">NSWindow</string>
@@ -333,7 +332,7 @@
 									<string>NeXT TIFF v4.0 pasteboard type</string>
 								</object>
 							</object>
-							<string key="NSFrame">{{0, 5}, {192, 202}}</string>
+							<string key="NSFrame">{{0, 2}, {250, 250}}</string>
 							<reference key="NSSuperview" ref="825415606"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSImageCell" key="NSCell" id="644668253">
@@ -341,7 +340,7 @@
 								<int key="NSCellFlags2">33554432</int>
 								<object class="NSCustomResource" key="NSContents">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">paste_embed_code</string>
+									<string key="NSResourceName">paste_html</string>
 								</object>
 								<int key="NSAlign">0</int>
 								<int key="NSScale">2</int>
@@ -374,7 +373,7 @@
 									<string>public.url-name</string>
 								</object>
 							</object>
-							<string key="NSFrameSize">{192, 207}</string>
+							<string key="NSFrame">{{0, -0.5}, {250, 250}}</string>
 							<reference key="NSSuperview" ref="825415606"/>
 							<reference key="NSNextKeyView"/>
 							<string key="FrameName"/>
@@ -401,7 +400,7 @@
 							<bool key="AllowsUndo">YES</bool>
 						</object>
 					</object>
-					<string key="NSFrameSize">{192, 208}</string>
+					<string key="NSFrameSize">{250, 250}</string>
 					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
@@ -538,6 +537,14 @@
 						<reference key="destination" ref="96774495"/>
 					</object>
 					<int key="connectionID">495</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">keepWindowOnTop</string>
+						<reference key="source" ref="96774495"/>
+						<reference key="destination" ref="769000"/>
+					</object>
+					<int key="connectionID">496</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -932,9 +939,9 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{382, 603}, {192, 208}}</string>
+					<string>{{382, 561}, {250, 250}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{382, 603}, {192, 208}}</string>
+					<string>{{382, 561}, {250, 250}}</string>
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -963,7 +970,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">495</int>
+			<int key="maxID">496</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -991,12 +998,14 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>background</string>
+							<string>keepWindowOnTop</string>
 							<string>webView</string>
 							<string>window</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>NSImageView</string>
+							<string>NSMenuItem</string>
 							<string>WebView</string>
 							<string>NSWindow</string>
 						</object>
@@ -1581,8 +1590,8 @@
 		<string key="IBDocument.LastKnownRelativeProjectPath">../../Extract.xcodeproj</string>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NS.key.0">paste_embed_code</string>
-			<string key="NS.object.0">{200, 200}</string>
+			<string key="NS.key.0">paste_html</string>
+			<string key="NS.object.0">{250, 250}</string>
 		</object>
 	</data>
 </archive>

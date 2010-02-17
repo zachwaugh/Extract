@@ -8,10 +8,14 @@
 
 #import "EXAppController.h"
 
+#define WINDOW_TOOLBAR_HEIGHT 23
+
+NSString * const EXKeepWindowOnTop = @"KeepWindowOnTop"; 
+
 // Private methods
 @interface EXAppController ()
 
-- (void)loadEmbed:(NSString *)embedCode;
+- (void)loadHTMLString:(NSString *)htmlString;
 - (void)logSource;
 
 @end
@@ -19,15 +23,19 @@
 
 @implementation EXAppController
 
-@synthesize originalEmbed, background;
+@synthesize cache, background;
 
 - (void)awakeFromNib
 {
-	// Allow spaces to work
-	[window setContentBorderThickness:0 forEdge:NSMinYEdge];
 	[window setBackgroundColor:[NSColor colorWithCalibratedWhite:0.0 alpha:0.75]];
 	[window setOpaque:NO];
-	[window setLevel:NSFloatingWindowLevel];
+	
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:EXKeepWindowOnTop])
+	{
+		[window setLevel:NSFloatingWindowLevel];
+		[keepWindowOnTop setState:NSOnState];
+	}
+	
 	
 	[webView setDrawsBackground:NO];
 	[[[webView mainFrame] frameView] setAllowsScrolling:NO];
@@ -37,7 +45,7 @@
 
 - (void)dealloc
 {
-	self.originalEmbed = nil;
+	self.cache = nil;
 	self.background = nil;
 	
 	[super dealloc];
@@ -50,11 +58,13 @@
 	{
 		[window setLevel:NSNormalWindowLevel];
 		[sender setState:NSOffState];
+		[[NSUserDefaults standardUserDefaults] setBool:NO forKey:EXKeepWindowOnTop];
 	}
 	else
 	{
 		[window setLevel:NSFloatingWindowLevel];
 		[sender setState:NSOnState];
+		[[NSUserDefaults standardUserDefaults] setBool:YES forKey:EXKeepWindowOnTop];
 	}
 }
 
@@ -70,77 +80,78 @@
 - (void)copy:(id)sender
 {
 	[[NSPasteboard generalPasteboard] declareTypes:[NSArray arrayWithObject:NSStringPboardType] owner:self];
-	[[NSPasteboard generalPasteboard] setString:self.originalEmbed forType:NSStringPboardType];
+	[[NSPasteboard generalPasteboard] setString:self.cache forType:NSStringPboardType];
 }
 
 
 // Handle pasting embed code
 - (void)paste:(id)sender
 {
-	NSString *content = [[NSPasteboard generalPasteboard] stringForType:NSStringPboardType];
+	// Get string from pasteboard and trim whitespace
+	NSString *html = [[[NSPasteboard generalPasteboard] stringForType:NSStringPboardType]stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	
 	// Cache pasted embed code
-	self.originalEmbed = content;
+	self.cache = html;
 	
-	[self loadEmbed:content];
+	[self loadHTMLString:html];
 }
 
 
-- (void)loadEmbed:(NSString *)embedCode
+// Parse HTML chunk and load into webview
+- (void)loadHTMLString:(NSString *)htmlString
 {	
-	DOMHTMLElement *extract = (DOMHTMLElement *)[[[webView mainFrame] DOMDocument] getElementById:@"_extract"];
-
-	int height, width;
+	DOMDocument *document = [[webView mainFrame] DOMDocument];
 	
-	extract.innerHTML = embedCode;
-	DOMElement *video;
+	// Save reference to extract div
+	DOMHTMLElement *body = [document body];
+	body.innerHTML = @"";
 	
-	// First look for <object> element
-	if ([[extract getElementsByTagName:@"object"] length] > 0)
+	DOMHTMLDivElement *container = (DOMHTMLDivElement *)[document createElement:@"div"];
+	container.innerHTML = htmlString;
+	
+	// Simple check of input, make sure it's not empty and the first node isn't a text node
+	if ([[container childNodes] length] > 0 && [[container firstChild] nodeType] == DOM_ELEMENT_NODE)
 	{
-		video = (DOMElement *)[[extract getElementsByTagName:@"object"] item:0];
-		width = [[video getAttribute:@"width"] intValue];
-		height = [[video getAttribute:@"height"] intValue] + 20;
+		int height, width;
 		
-		// Check for nested <embed> element
-		if ([[video getElementsByTagName:@"embed"] length] > 0)
+		// Try to get width and height directly off element attributes
+		width = [[(DOMElement *)[container firstChild] getAttribute:@"width"] intValue];
+		height = [[(DOMElement *)[container firstChild] getAttribute:@"height"] intValue];
+
+		// Probably invalid dimensions - set to reasonable defaults
+		if (width <= 10 && height <= 10)
 		{
-			DOMHTMLElement *embed = (DOMHTMLElement *)[[video getElementsByTagName:@"embed"] item:0];
-			[embed setAttribute:@"id" value:@"video"];
-			[embed setAttribute:@"bgcolor" value:@"#000000"];
-			[embed setAttribute:@"width" value:@"100%"];
-			[embed setAttribute:@"height" value:@"100%"];
+			width = 250;
+			height = 250;
 		}
-	}
-	else if ([[extract getElementsByTagName:@"embed"] length] > 0)
-	{
-		video = (DOMElement *)[[extract getElementsByTagName:@"embed"] item:0];
-		width = [[video getAttribute:@"width"] intValue];
-		height = [[video getAttribute:@"height"] intValue] + 20;
+		
+		// Change all embed elements to have a black background - looks better while loading instead of flash of white
+		DOMNodeList *embeds = [container getElementsByTagName:@"embed"];
+		for (int i = 0; i < [embeds length]; i++)
+		{
+			[(DOMElement *)[embeds item:i] setAttribute:@"bgcolor" value:@"#000000"];
+		}
+		
+		// Resize window to just fit embed
+		[self.background setHidden:YES];
+		NSRect windowFrame = [window frame];
+		NSRect rect = NSMakeRect(windowFrame.origin.x - ((width - windowFrame.size.width) / 2), windowFrame.origin.y - ((height - windowFrame.size.height) / 2), width, height + WINDOW_TOOLBAR_HEIGHT);
+		[window setFrame:rect display:YES animate:YES];
+		
+		[body appendChild:container];
 	}
 	else
 	{
-		// Invalid embed code - alert error
-		extract.innerHTML = @"";
-		NSAlert *alert = [NSAlert alertWithMessageText:@"Invalid embed code:" defaultButton:@"ok" alternateButton:nil otherButton:nil informativeTextWithFormat:self.originalEmbed];
+		// Invalid HTML - alert error and clear body
+		[self.background setHidden:NO];
+		body.innerHTML = @"";
+		NSAlert *alert = [NSAlert alertWithMessageText:@"Invalid HTML:" defaultButton:@"ok" alternateButton:nil otherButton:nil informativeTextWithFormat:self.cache];
 		[alert runModal];
-		
-		return;
 	}
-
-	// Update video attributes
-	[video setAttribute:@"bgcolor" value:@"#000000"];
-	[video setAttribute:@"width" value:@"100%"];
-	[video setAttribute:@"height" value:@"100%"];
-	
-	// Resize window to just fit embed
-	[self.background setHidden:YES];
-	NSRect windowFrame = [window frame];
-	NSRect rect = NSMakeRect(windowFrame.origin.x - ((width - windowFrame.size.width) / 2), windowFrame.origin.y - ((height - windowFrame.size.height) / 2), width, height);
-	[window setFrame:rect display:YES animate:YES];
-	//[self logSource];
 }
 
+
+// For debugging, output entire HTML doc
 - (void)logSource
 {
 	NSLog(@"%@", [(DOMHTMLElement *)[[[webView mainFrame] DOMDocument] documentElement] outerHTML]);
