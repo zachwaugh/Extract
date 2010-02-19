@@ -10,14 +10,15 @@
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		9207FB871117355E000BD7E3 /* Extract.icns in Resources */ = {isa = PBXBuildFile; fileRef = 9207FB861117355E000BD7E3 /* Extract.icns */; };
-		BF2B5F0511114D490048A827 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BFCE904B103CFF6000BF8A66 /* Sparkle.framework */; };
 		BF349974112B9ED60083C330 /* paste_html.png in Resources */ = {isa = PBXBuildFile; fileRef = BF349973112B9ED60083C330 /* paste_html.png */; };
 		BF349982112B9FB30083C330 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF349980112B9FB30083C330 /* MainMenu.xib */; };
 		BF349985112B9FC00083C330 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF349983112B9FC00083C330 /* InfoPlist.strings */; };
 		BF8DE228102CE92A00D342E6 /* EXAppController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8DE227102CE92A00D342E6 /* EXAppController.m */; };
 		BF8DE22C102CE95700D342E6 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF8DE22B102CE95700D342E6 /* WebKit.framework */; };
 		BF8DE36F102CF9BE00D342E6 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = BF8DE36E102CF9BE00D342E6 /* index.html */; };
-		BFCE904C103CFF6000BF8A66 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFCE904B103CFF6000BF8A66 /* Sparkle.framework */; };
+		BF96DB2E112E4994003AF4DB /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF96DB2D112E4994003AF4DB /* Sparkle.framework */; };
+		BF96DB4B112E49E8003AF4DB /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BF96DB2D112E4994003AF4DB /* Sparkle.framework */; };
+		BF96DB66112E4B85003AF4DB /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = BF96DB65112E4B85003AF4DB /* dsa_pub.pem */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,7 +28,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				BF2B5F0511114D490048A827 /* Sparkle.framework in CopyFiles */,
+				BF96DB4B112E49E8003AF4DB /* Sparkle.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,7 +51,8 @@
 		BF8DE227102CE92A00D342E6 /* EXAppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXAppController.m; sourceTree = "<group>"; };
 		BF8DE22B102CE95700D342E6 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
 		BF8DE36E102CF9BE00D342E6 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
-		BFCE904B103CFF6000BF8A66 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = frameworks/Sparkle.framework; sourceTree = "<group>"; };
+		BF96DB2D112E4994003AF4DB /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = frameworks/Sparkle.framework; sourceTree = "<group>"; };
+		BF96DB65112E4B85003AF4DB /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,7 +62,7 @@
 			files = (
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				BF8DE22C102CE95700D342E6 /* WebKit.framework in Frameworks */,
-				BFCE904C103CFF6000BF8A66 /* Sparkle.framework in Frameworks */,
+				BF96DB2E112E4994003AF4DB /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,7 +82,7 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				BFCE904B103CFF6000BF8A66 /* Sparkle.framework */,
+				BF96DB2D112E4994003AF4DB /* Sparkle.framework */,
 				BF8DE22B102CE95700D342E6 /* WebKit.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
 			);
@@ -129,6 +131,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BF96DB65112E4B85003AF4DB /* dsa_pub.pem */,
 				9207FB861117355E000BD7E3 /* Extract.icns */,
 				BF349973112B9ED60083C330 /* paste_html.png */,
 				8D1107310486CEB800E47090 /* Extract-Info.plist */,
@@ -198,6 +201,7 @@
 				BF349974112B9ED60083C330 /* paste_html.png in Resources */,
 				BF349982112B9FB30083C330 /* MainMenu.xib in Resources */,
 				BF349985112B9FC00083C330 /* InfoPlist.strings in Resources */,
+				BF96DB66112E4B85003AF4DB /* dsa_pub.pem in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
