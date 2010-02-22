@@ -16,11 +16,16 @@
 	IBOutlet NSImageView *background;
 	IBOutlet NSMenuItem *keepWindowOnTop;
 	
+	BOOL hasWebViewFinishedLoading;
+	
 	NSString *cache;
+	NSString *queue;
 }
 
 @property (retain) NSString *cache;
+@property (retain) NSString *queue;
 @property (retain) NSImageView *background;
+@property (assign) BOOL hasWebViewFinishedLoading;
 
 - (void)paste:(id)sender;
 - (void)copy:(id)sender;
