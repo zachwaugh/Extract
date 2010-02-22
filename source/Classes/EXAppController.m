@@ -23,10 +23,22 @@ NSString * const EXKeepWindowOnTop = @"KeepWindowOnTop";
 
 @implementation EXAppController
 
-@synthesize cache, background;
+@synthesize cache, queue, background, hasWebViewFinishedLoading;
+
+
+#pragma mark -
+#pragma mark Application Delegate methods
+
+- (void)applicationWillFinishLaunching:(NSNotification *)notification
+{
+	NSAppleEventManager *appleEventManager = [NSAppleEventManager sharedAppleEventManager];
+	[appleEventManager setEventHandler:self andSelector:@selector(handleGetURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
+}
+
 
 - (void)awakeFromNib
 {
+	self.hasWebViewFinishedLoading = NO;
 	[window setBackgroundColor:[NSColor colorWithCalibratedWhite:0.0 alpha:0.75]];
 	[window setOpaque:NO];
 	
@@ -36,8 +48,8 @@ NSString * const EXKeepWindowOnTop = @"KeepWindowOnTop";
 		[keepWindowOnTop setState:NSOnState];
 	}
 	
-	
 	[webView setDrawsBackground:NO];
+	[webView setFrameLoadDelegate:self];
 	[[[webView mainFrame] frameView] setAllowsScrolling:NO];
 	[[webView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"]]]];
 }
@@ -47,8 +59,19 @@ NSString * const EXKeepWindowOnTop = @"KeepWindowOnTop";
 {
 	self.cache = nil;
 	self.background = nil;
+	self.queue = nil;
 	
 	[super dealloc];
+}
+
+
+#pragma mark -
+#pragma mark Window handling/delegate methods
+
+// Make sure app quits after window is closed
+- (void)windowWillClose:(NSNotification *)notification
+{
+	[[NSApplication sharedApplication] terminate:nil];
 }
 
 
@@ -69,12 +92,7 @@ NSString * const EXKeepWindowOnTop = @"KeepWindowOnTop";
 }
 
 
-// Make sure app quits after panel is closed
-- (void)windowWillClose:(NSNotification *)notification
-{
-	[[NSApplication sharedApplication] terminate:nil];
-}
-
+#pragma mark  -
 
 // Allow getting original embed code back out of app
 - (void)copy:(id)sender
@@ -100,6 +118,13 @@ NSString * const EXKeepWindowOnTop = @"KeepWindowOnTop";
 // Parse HTML chunk and load into webview
 - (void)loadHTMLString:(NSString *)htmlString
 {	
+	// Queue HTML to be loaded later if web view hasn't finished loading
+	if (!self.hasWebViewFinishedLoading)
+	{
+		self.queue = htmlString;
+		return;
+	}
+	
 	DOMDocument *document = [[webView mainFrame] DOMDocument];
 	
 	// Save reference to extract div
@@ -155,6 +180,35 @@ NSString * const EXKeepWindowOnTop = @"KeepWindowOnTop";
 - (void)logSource
 {
 	NSLog(@"%@", [(DOMHTMLElement *)[[[webView mainFrame] DOMDocument] documentElement] outerHTML]);
+}
+
+
+#pragma mark  -
+#pragma mark  Apple Event Handling
+
+// Handle a URL sent to app via extract:// call
+- (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent
+{
+	NSString *url = [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
+	NSString *html = [[url stringByReplacingCharactersInRange:NSMakeRange(0, 10) withString:@""] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	self.cache = html;
+	
+	[self loadHTMLString:html];
+}
+
+
+#pragma mark -
+#pragma mark Webview delegate methods
+
+- (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame
+{
+	self.hasWebViewFinishedLoading = YES;
+	
+	if (self.queue)
+	{
+		[self loadHTMLString:self.queue];
+		self.queue = nil;
+	}
 }
 
 @end

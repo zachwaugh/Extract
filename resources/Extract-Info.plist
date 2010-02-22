@@ -28,5 +28,18 @@
 	<string>http://zachwaugh.com/extract/appcast.xml</string>
 	<key>SUPublicDSAKeyFile</key>
 	<string>dsa_pub.pem</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>Extract</string>
+			<key>CFBundleURLIconFile</key>
+			<string>Extract.icns</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>extract</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>
