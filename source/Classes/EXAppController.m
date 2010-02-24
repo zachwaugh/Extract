@@ -57,6 +57,7 @@ NSString * const EXKeepWindowOnTop = @"KeepWindowOnTop";
 
 - (void)dealloc
 {
+	[[NSAppleEventManager sharedAppleEventManager] removeEventHandlerForEventClass:kInternetEventClass andEventID:kAEGetURL];
 	self.cache = nil;
 	self.background = nil;
 	self.queue = nil;
@@ -106,7 +107,7 @@ NSString * const EXKeepWindowOnTop = @"KeepWindowOnTop";
 - (void)paste:(id)sender
 {
 	// Get string from pasteboard and trim whitespace
-	NSString *html = [[[NSPasteboard generalPasteboard] stringForType:NSStringPboardType]stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+	NSString *html = [[[NSPasteboard generalPasteboard] stringForType:NSStringPboardType] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	
 	// Cache pasted embed code
 	self.cache = html;
@@ -117,7 +118,7 @@ NSString * const EXKeepWindowOnTop = @"KeepWindowOnTop";
 
 // Parse HTML chunk and load into webview
 - (void)loadHTMLString:(NSString *)htmlString
-{	
+{
 	// Queue HTML to be loaded later if web view hasn't finished loading
 	if (!self.hasWebViewFinishedLoading)
 	{
