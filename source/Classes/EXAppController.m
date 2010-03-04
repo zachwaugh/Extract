@@ -190,8 +190,10 @@ NSString * const EXKeepWindowOnTop = @"KeepWindowOnTop";
 // Handle a URL sent to app via extract:// call
 - (void)handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent
 {
-	NSString *url = [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
-	NSString *html = [[url stringByReplacingCharactersInRange:NSMakeRange(0, 10) withString:@""] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	NSURL *url = [NSURL URLWithString:[[event paramDescriptorForKeyword:keyDirectObject] stringValue]];
+	
+	// lazy way - don't parse query string, just strip out "code=" from beginning of string
+	NSString *html = [[[url query] stringByReplacingCharactersInRange:NSMakeRange(0, 5) withString:@""] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	self.cache = html;
 	
 	[self loadHTMLString:html];
